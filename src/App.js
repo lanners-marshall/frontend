@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import Registration from './components/authentication/Registration';
+import Landing from './components/Landing';
+import NoPage from './components/NoPage';
+import Notes from './components/notes/Notes';
+import Navigation from './components/Navigation';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { checkToken } from './store/actions/authenticationActions';
+import PropTypes from 'prop-types';
 
-function App() {
+const App = ({ loggedIn, checkToken }) => {
+  useEffect(() => {
+    checkToken();
+  }, [loggedIn]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {loggedIn ? (
+        <Switch>
+          <Route path='/notes' component={Notes} />
+          <Route component={NoPage} />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route exact path='/' component={Landing} />
+          <Route path='/registration' component={Registration} />
+          <Route component={NoPage} />
+        </Switch>
+      )}
+    </>
   );
-}
+};
 
-export default App;
+App.propTypes = {
+  loggedIn: PropTypes.bool,
+  checkToken: PropTypes.func
+};
+
+const mapStateToProps = state => ({
+  loggedIn: state.auth.loggedIn
+});
+
+export default connect(
+  mapStateToProps,
+  { checkToken }
+)(App);
