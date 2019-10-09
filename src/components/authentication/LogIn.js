@@ -3,19 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authenticationActions';
 
-const LogIn = () => {
+const LogIn = ({ loading, loginUser, history, error }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const loginUser = e => {
+  const login = e => {
     e.preventDefault();
-    alert('clicked');
+    const user = { username, password };
+    setUsername('');
+    setPassword('');
+    loginUser(user, history);
   };
 
   return (
     <div>
       Login
-      <form onSubmit={e => loginUser(e)}>
+      <form onSubmit={e => login(e)}>
         <input
           placeholder='username'
           value={username}
@@ -23,6 +26,7 @@ const LogIn = () => {
         />
         <br />
         <input
+          type='password'
           placeholder='password'
           value={password}
           onChange={e => setPassword(e.target.value)}
@@ -34,52 +38,14 @@ const LogIn = () => {
   );
 };
 
+LogIn.propType = {
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  history: PropTypes.object,
+  loginUser: PropTypes.func
+};
+
 export default connect(
   null,
   { loginUser }
 )(LogIn);
-
-/*
-
-SignUp.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.string,
-  signup: PropTypes.func,
-  history: PropTypes.object
-};
-
-const mapStateToProps = state => ({
-  loading: state.auth.loading,
-  error: state.auth.error
-});
-
-const mapDispatchToProps = dispatch => ({
-  signup: (user, history) => dispatch(signup(user, history))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUp);SignUp.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.string,
-  signup: PropTypes.func,
-  history: PropTypes.object
-};
-
-const mapStateToProps = state => ({
-  loading: state.auth.loading,
-  error: state.auth.error
-});
-
-const mapDispatchToProps = dispatch => ({
-  signup: (user, history) => dispatch(signup(user, history))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUp);
-
-
-*/

@@ -9,6 +9,7 @@ export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
+export const VALIDATE_TOKEN_START = 'VALIDATE_TOKEN_START';
 export const VALIDATE_TOKEN_SUCCESS = 'VALIDATE_TOKEN_SUCCESS';
 export const VALIDATE_TOKEN_FAILURE = 'VALIDATE_TOKEN_FAILURE';
 
@@ -39,7 +40,7 @@ export const loginUser = (user, history) => {
   return dispatch => {
     dispatch({ type: LOGIN_START });
     axios
-      .post(`${URL}/login`)
+      .post(`${URL}/users/login`, user)
       .then(response => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user_id', response.data.id);
@@ -48,6 +49,7 @@ export const loginUser = (user, history) => {
         dispatch({ type: LOGIN_SUCCESS });
       })
       .catch(error => {
+        console.log(error);
         dispatch({ type: LOGIN_ERROR });
       });
   };
@@ -55,6 +57,7 @@ export const loginUser = (user, history) => {
 
 export const checkToken = () => {
   return dispatch => {
+    dispatch({ type: VALIDATE_TOKEN_START });
     const token = localStorage.getItem('token');
 
     if (!token) {

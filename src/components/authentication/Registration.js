@@ -18,7 +18,7 @@ const Registration = props => {
       <button onClick={e => changeTab(e, 1)}>SignUp</button>
       <button onClick={e => changeTab(e, 2)}>Login</button>
       {tab === 1 && <SignUp history={props.history} />}
-      {tab === 2 && <LogIn />}
+      {tab === 2 && <LogIn history={props.history} />}
     </div>
   );
 };

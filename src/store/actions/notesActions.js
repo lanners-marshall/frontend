@@ -36,7 +36,7 @@ export const getAllNotes = token => {
   };
 };
 
-const createNote = token => {
+export const createNote = token => {
   return dispatch => {
     dispatch({ type: CREATE_NOTE_START });
     axios
@@ -52,7 +52,7 @@ const createNote = token => {
   };
 };
 
-const updateNote = (id, token, note) => {
+export const updateNote = (id, token, note) => {
   return dispatch => {
     dispatch({ type: UPDATE_NOTE_START });
     axios
@@ -66,7 +66,7 @@ const updateNote = (id, token, note) => {
   };
 };
 
-const getNote = (id, token) => {
+export const getNote = (id, token) => {
   return dispatch => {
     dispatch({ type: GET_NOTE_START });
     axios
@@ -80,7 +80,7 @@ const getNote = (id, token) => {
   };
 };
 
-const getCollaborators = (id, token) => {
+export const getCollaborators = (id, token) => {
   return dispatch => {
     dispatch({ type: GET_COLLABORATORS_START });
     axios

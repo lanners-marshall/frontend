@@ -4,28 +4,30 @@ import Landing from './components/Landing';
 import NoPage from './components/NoPage';
 import Notes from './components/notes/Notes';
 import Navigation from './components/Navigation';
+import CreateNote from './components/notes/CreateNote';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { checkToken } from './store/actions/authenticationActions';
 import PropTypes from 'prop-types';
 
-const App = ({ loggedIn, checkToken }) => {
+const App = ({ loggedIn, loggedOut, checkToken }) => {
   useEffect(() => {
     checkToken();
   }, [loggedIn]);
-
   return (
     <>
-      {loggedIn ? (
+      {loggedIn && (
         <Switch>
           <Route path='/notes' component={Notes} />
+          <Route path='/create' component={CreateNote} />
           <Route component={NoPage} />
         </Switch>
-      ) : (
+      )}
+      {loggedOut && (
         <Switch>
           <Route exact path='/' component={Landing} />
           <Route path='/registration' component={Registration} />
-          <Route component={NoPage} />
+          <Route component={NoPage} />}
         </Switch>
       )}
     </>
@@ -34,11 +36,15 @@ const App = ({ loggedIn, checkToken }) => {
 
 App.propTypes = {
   loggedIn: PropTypes.bool,
-  checkToken: PropTypes.func
+  checkToken: PropTypes.func,
+  loading: PropTypes.bool,
+  loggedOut: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.loggedIn
+  loggedIn: state.auth.loggedIn,
+  loading: state.auth.loading,
+  loggedOut: state.auth.loggedOut
 });
 
 export default connect(

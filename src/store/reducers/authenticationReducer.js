@@ -5,6 +5,7 @@ import {
   LOGIN_START,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
+  VALIDATE_TOKEN_START,
   VALIDATE_TOKEN_SUCCESS,
   VALIDATE_TOKEN_FAILURE
 } from '../actions/authenticationActions';
@@ -12,7 +13,8 @@ import {
 const initialState = {
   loading: false,
   error: null,
-  loggedIn: false
+  loggedIn: false,
+  loggedOut: false
 };
 
 const authenticationReducer = (state = initialState, action) => {
@@ -39,10 +41,12 @@ const authenticationReducer = (state = initialState, action) => {
         error: action.payload,
         loggedIn: false
       };
+    case VALIDATE_TOKEN_START:
+      return { ...state };
     case VALIDATE_TOKEN_SUCCESS:
-      return { ...state, loggedIn: true };
+      return { ...state, loggedIn: true, loggedOut: false };
     case VALIDATE_TOKEN_FAILURE:
-      return { ...state, loggedIn: false };
+      return { ...state, loggedIn: false, loggedOut: true };
     default:
       return state;
   }
