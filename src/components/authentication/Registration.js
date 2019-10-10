@@ -2,24 +2,60 @@ import React, { useState } from 'react';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Navigation from '../Navigation';
+import {
+  Container,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink,
+  Row
+} from 'reactstrap';
+import classnames from 'classnames';
+import './custom.css';
 
 const Registration = props => {
-  const [tab, setTab] = useState(1);
-  const changeTab = (e, tab) => {
-    e.preventDefault();
-    setTab(tab);
-  };
+  const [activeTab, setActiveTab] = useState('1');
 
   return (
-    <div>
+    <>
       <Navigation />
-      Registration
       <br />
-      <button onClick={e => changeTab(e, 1)}>SignUp</button>
-      <button onClick={e => changeTab(e, 2)}>Login</button>
-      {tab === 1 && <SignUp history={props.history} />}
-      {tab === 2 && <LogIn history={props.history} />}
-    </div>
+      <Container>
+        <h1>Registration</h1>
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === '1' })}
+              style={{ '&:hover': { cursor: 'pointer' } }}
+              onClick={() => {
+                setActiveTab('1');
+              }}
+            >
+              Sign Up
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === '2' })}
+              onClick={() => {
+                setActiveTab('2');
+              }}
+            >
+              Log In
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent activeTab={activeTab}>
+          <TabPane tabId='1'>
+            <SignUp history={props.history} />
+          </TabPane>
+          <TabPane tabId='2'>
+            <LogIn history={props.history} />
+          </TabPane>
+        </TabContent>
+      </Container>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authenticationActions';
+import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 
 const LogIn = ({ loading, loginUser, history, error }) => {
   const [username, setUsername] = useState('');
@@ -16,24 +17,34 @@ const LogIn = ({ loading, loginUser, history, error }) => {
   };
 
   return (
-    <div>
-      Login
-      <form onSubmit={e => login(e)}>
-        <input
-          placeholder='username'
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-        <br />
-        <input
-          type='password'
-          placeholder='password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <br />
-        <button type='submit'>Login</button>
-      </form>
+    <div style={{ marginTop: '15px' }}>
+      <Form onSubmit={login}>
+        <FormGroup>
+          <Label for='username'>Email</Label>
+          <Input
+            type='text'
+            name='username'
+            id='username'
+            placeholder='username'
+            value={username}
+            onChange={e => {
+              setUsername(e.target.value);
+            }}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for='password'>Password</Label>
+          <Input
+            type='password'
+            name='password'
+            id='examplePassword'
+            placeholder='password placeholder'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </FormGroup>
+        <Button type='submit'>Submit</Button>
+      </Form>
     </div>
   );
 };

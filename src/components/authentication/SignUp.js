@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { signup } from '../../store/actions/authenticationActions';
+import { Field, Form, Formik } from 'formik';
+import { Col, Row, Container, Button } from 'reactstrap';
+import { ReactstrapInput } from 'reactstrap-formik';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
 const SignUp = ({ loading, error, history, signup }) => {
   return (
-    <>
-      <div>SignUp</div>
+    <div style={{ marginTop: '15px' }}>
       <Formik
         initialValues={{
           username: '',
@@ -16,59 +18,87 @@ const SignUp = ({ loading, error, history, signup }) => {
           password: '',
           confirmPassword: ''
         }}
-        validationSchema={Yup.object().shape({
-          username: Yup.string().required('First Name is required'),
-          email: Yup.string()
-            .email('Email is invalid')
-            .required('Email is required'),
-          password: Yup.string()
-            .required('Password is required')
-            .test(
-              'regex',
-              'Password must be min 8 characters, and have 1 Special Character, 1 Uppercase, 1 Number and 1 Lowercase',
-              val => {
-                let regExp = new RegExp(
-                  '^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$'
-                );
-                return regExp.test(val);
-              }
-            ),
-          confirmPassword: Yup.string()
-            .oneOf([Yup.ref('password'), null], 'Passwords must match')
-            .required('Confirm Password is required')
-        })}
-        onSubmit={fields => {
-          const { username, password, email } = fields;
-          const user = { username: username, password: password, email: email };
+        validate={values => {
+          const errors = {};
+          let regExp = new RegExp(
+            '^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$'
+          );
+          if (!values.email) {
+            errors.email = 'Required';
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address';
+          }
+          if (!values.username) {
+            errors.username = 'Required';
+          } else if (values.username.length < 4) {
+            errors.username = 'Min 4 characters';
+          }
+
+          if (!values.password) {
+            errors.password = 'Required';
+          } else if (!regExp.test(values.password)) {
+            errors.password =
+              'Min 8 characters, 1 Special Character, 1 Uppercase, 1 Number, and 1 Lowercase';
+          }
+          if (values.password !== values.confirmPassword) {
+            errors.confirmPassword = "passwords don't match";
+          }
+          return errors;
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          const { email, password, username } = values;
+          const user = { email, password, username };
           signup(user, history);
         }}
-        render={({ errors, status, touched }) => (
+        render={({ submitForm, isSubmitting, values }) => (
           <Form>
-            <div className='form-group'>
-              <label htmlFor='username'>username</label>
-              <Field name='username' type='text' />
-              <ErrorMessage name='username' component='div' />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='email'>Email</label>
-              <Field name='email' type='text' />
-              <ErrorMessage name='email' component='div' />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='password'>Password</label>
-              <Field name='password' type='password' />
-              <ErrorMessage name='password' component='div' />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='confirmPassword'>Confirm Password</label>
-              <Field name='confirmPassword' type='password' />
-              <ErrorMessage name='confirmPassword' component='div' />
-            </div>
-            <button type='submit'>Register</button>
+            <Row>
+              <Col xs='12'>
+                <Field
+                  type='text'
+                  label='Username'
+                  name='username'
+                  id='username'
+                  component={ReactstrapInput}
+                />
+              </Col>
+              <Col xs='12'>
+                <Field
+                  type='email'
+                  label='Email'
+                  name='email'
+                  id='email'
+                  component={ReactstrapInput}
+                />
+              </Col>
+              <Col xs='12'>
+                <Field
+                  type='password'
+                  label='Password'
+                  name='password'
+                  id='password'
+                  component={ReactstrapInput}
+                />
+              </Col>
+              <Col xs='12'>
+                <Field
+                  type='password'
+                  label='Confirm Password'
+                  name='confirmPassword'
+                  id='confirmPassword'
+                  component={ReactstrapInput}
+                />
+              </Col>
+              <Col xs='12'>
+                <Button type='submit'>Submit</Button>
+              </Col>
+            </Row>
           </Form>
         )}
       />
-    </>
+    </div>
   );
 };
 

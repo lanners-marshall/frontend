@@ -31,10 +31,8 @@ const Notes = ({ notes, loading, getAllNotes, history }) => {
         <ul>
           {notes.map((note, i) => {
             return (
-              <li>
-                <Link to={`/notes/${note.id}`} key={i}>
-                  {note.title}
-                </Link>
+              <li key={i}>
+                <Link to={`/notes/${note.id}`}>{note.title}</Link>
               </li>
             );
           })}
