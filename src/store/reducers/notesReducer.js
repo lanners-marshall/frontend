@@ -10,18 +10,14 @@ import {
   UPDATE_NOTE_SUCCESS,
   GET_NOTE_START,
   GET_NOTE_ERROR,
-  GET_NOTE_SUCCESS,
-  GET_COLLABORATORS_START,
-  GET_COLLABORATORS_ERROR,
-  GET_COLLABORATORS_SUCCESS
+  GET_NOTE_SUCCESS
 } from '../actions/notesActions';
 
 const initialState = {
   loading: false,
   error: null,
-  note: '',
-  notes: [],
-  collaborators: []
+  note: null,
+  notes: []
 };
 
 const notesReducer = (state = initialState, action) => {
@@ -45,22 +41,11 @@ const notesReducer = (state = initialState, action) => {
     case UPDATE_NOTE_ERROR:
       return { ...state, loading: false, error: action.payload };
     case GET_NOTE_START:
-      return { ...state, loading: true, error: null, note: '' };
+      return { ...state, loading: true, error: null, note: null };
     case GET_NOTE_SUCCESS:
       return { ...state, loading: false, error: null, note: action.payload };
     case GET_NOTE_ERROR:
-      return { ...state, loading: false, error: action.payload, note: '' };
-    case GET_COLLABORATORS_START:
-      return { ...state, loading: true, error: null };
-    case GET_COLLABORATORS_SUCCESS:
-      return { ...state, loading: false, error: null, collaborators: [] };
-    case GET_COLLABORATORS_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-        collaborators: []
-      };
+      return { ...state, loading: false, error: action.payload, note: null };
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import Registration from './components/authentication/Registration';
 import Landing from './components/Landing';
 import NoPage from './components/NoPage';
 import Notes from './components/notes/Notes';
-import Navigation from './components/Navigation';
+import Note from './components/notes/Note';
 import CreateNote from './components/notes/CreateNote';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,7 +18,8 @@ const App = ({ loggedIn, loggedOut, checkToken }) => {
     <>
       {loggedIn && (
         <Switch>
-          <Route path='/notes' component={Notes} />
+          <Route exact path='/notes' component={Notes} />
+          <Route path='/notes/:id' component={Note} />
           <Route path='/create' component={CreateNote} />
           <Route component={NoPage} />
         </Switch>

@@ -16,10 +16,6 @@ export const GET_NOTE_START = 'GET_NOTE_START';
 export const GET_NOTE_ERROR = 'GET_NOTE_ERROR';
 export const GET_NOTE_SUCCESS = 'GET_NOTE_SUCCESS';
 
-export const GET_COLLABORATORS_START = 'GET_COLLABORATORS_START';
-export const GET_COLLABORATORS_ERROR = 'GET_COLLABORATORS_ERROR';
-export const GET_COLLABORATORS_SUCCESS = 'GET_COLLABORATORS_SUCCESS';
-
 const URL = 'https://backend206.herokuapp.com';
 
 export const getAllNotes = token => {
@@ -36,15 +32,14 @@ export const getAllNotes = token => {
   };
 };
 
-export const createNote = token => {
+export const createNote = (note, history) => {
   return dispatch => {
     dispatch({ type: CREATE_NOTE_START });
     axios
-      .post(`${URL}/notes`, {
-        headers: { Authorization: token }
-      })
+      .post(`${URL}/notes`, note)
       .then(response => {
         dispatch({ type: CREATE_NOTE_SUCCESS, payload: response.data });
+        history.push('/notes');
       })
       .catch(error => {
         dispatch({ type: CREATE_NOTE_ERROR, payload: error });
@@ -52,11 +47,11 @@ export const createNote = token => {
   };
 };
 
-export const updateNote = (id, token, note) => {
+export const updateNote = (id, note) => {
   return dispatch => {
     dispatch({ type: UPDATE_NOTE_START });
     axios
-      .put(`${URL}/notes/${id}`, { headers: { Authorization: token } }, note)
+      .put(`${URL}/notes/${id}`, note)
       .then(response => {
         dispatch({ type: UPDATE_NOTE_SUCCESS, payload: response.data });
       })
@@ -72,26 +67,10 @@ export const getNote = (id, token) => {
     axios
       .get(`${URL}/notes/${id}`, { headers: { Authorization: token } })
       .then(response => {
-        dispatch({ type: GET_NOTE_SUCCESS, payload: response.data });
+        dispatch({ type: GET_NOTE_SUCCESS, payload: response.data[0] });
       })
       .catch(error => {
         dispatch({ type: GET_NOTE_ERROR, payload: error });
-      });
-  };
-};
-
-export const getCollaborators = (id, token) => {
-  return dispatch => {
-    dispatch({ type: GET_COLLABORATORS_START });
-    axios
-      .get(`${URL}/notes/collaborators/${id}`, {
-        headers: { Authorization: token }
-      })
-      .then(response => {
-        dispatch({ type: GET_COLLABORATORS_SUCCESS, payload: response.data });
-      })
-      .catch(error => {
-        dispatch({ type: GET_COLLABORATORS_SUCCESS, payload: error });
       });
   };
 };
