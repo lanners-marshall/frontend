@@ -12,7 +12,8 @@ import {
   Row
 } from 'reactstrap';
 import classnames from 'classnames';
-import './custom.css';
+import '../custom.css';
+import Footer from '../Footer';
 
 const Registration = props => {
   const [activeTab, setActiveTab] = useState('1');
@@ -55,6 +56,7 @@ const Registration = props => {
           </TabPane>
         </TabContent>
       </Container>
+      <Footer />
     </>
   );
 };

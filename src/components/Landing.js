@@ -1,6 +1,8 @@
 import React from 'react';
 import Navigation from './Navigation';
 import { Container } from 'reactstrap';
+import './custom.css';
+import Footer from './Footer';
 
 const Landing = () => {
   return (
@@ -10,6 +12,7 @@ const Landing = () => {
       <Container>
         <h1>Landing</h1>
       </Container>
+      <Footer />
     </>
   );
 };

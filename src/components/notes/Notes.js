@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Note from './Note';
+import { Container } from 'reactstrap';
+import NotesNavigation from './NotesNavigation';
+import Footer from '../Footer';
 
 const Notes = ({ notes, loading, getAllNotes, history }) => {
   useEffect(() => {
@@ -11,34 +14,27 @@ const Notes = ({ notes, loading, getAllNotes, history }) => {
     getAllNotes(token);
   }, []);
 
-  const logOut = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
-
   return (
-    <div>
-      <h1>Notes</h1>
-      <Link to='/create'>Create Note</Link>
-      <br />
-      <br />
-      <button onClick={logOut}>logout</button>
-      <br />
-      <br />
-      {loading && notes.length === 0 ? (
-        <div>loading . . .</div>
-      ) : (
-        <ul>
-          {notes.map((note, i) => {
-            return (
-              <li key={i}>
-                <Link to={`/notes/${note.id}`}>{note.title}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
+    <>
+      <NotesNavigation />
+      <Container>
+        <h1>Notes</h1>
+        {loading && notes.length === 0 ? (
+          <div>loading . . .</div>
+        ) : (
+          <ul>
+            {notes.map((note, i) => {
+              return (
+                <li key={i}>
+                  <Link to={`/notes/${note.id}`}>{note.title}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </Container>
+      <Footer />
+    </>
   );
 };
 

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authenticationActions';
 import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import '../custom.css';
+import Footer from '../Footer';
 
 const LogIn = ({ loading, loginUser, history, error }) => {
   const [username, setUsername] = useState('');
@@ -20,7 +22,7 @@ const LogIn = ({ loading, loginUser, history, error }) => {
     <div style={{ marginTop: '15px' }}>
       <Form onSubmit={login}>
         <FormGroup>
-          <Label for='username'>Email</Label>
+          <Label for='username'>Username</Label>
           <Input
             type='text'
             name='username'
@@ -45,6 +47,7 @@ const LogIn = ({ loading, loginUser, history, error }) => {
         </FormGroup>
         <Button type='submit'>Submit</Button>
       </Form>
+      <Footer />
     </div>
   );
 };

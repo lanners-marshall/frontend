@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { getNote } from '../../store/actions/notesActions';
 import { getNoteCollaberators } from '../../store/actions/collaberatorsActions';
 import PropTypes from 'prop-types';
+import { Container, Card, CardText, CardBody, Button } from 'reactstrap';
+import NotesNavigation from './NotesNavigation';
+import Footer from '../Footer';
 
 const Note = ({
   getNote,
@@ -21,26 +24,32 @@ const Note = ({
 
   return (
     <>
-      <Link to='/notes'>Notes</Link>
-      {loading && <div>Loading . . . </div>}
-      {note && (
-        <div>
-          <h1>title: {note.title}</h1>
-          <p>body: {note.body}</p>
-          <p>author: {note.author}</p>
-        </div>
-      )}
-      <br />
-      {note_collaborators.length > 0 && (
-        <div>
-          <h2>Collaborators:</h2>
-          <ul>
-            {note_collaborators.map((collaberator, i) => {
-              return <li key={i}>{collaberator.name}</li>;
-            })}
-          </ul>
-        </div>
-      )}
+      <NotesNavigation />
+      <Container>
+        {loading && <div>Loading . . . </div>}
+        {note && (
+          <Card>
+            <CardBody>
+              <h2>{note.title}</h2>
+              <CardText>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </CardText>
+              <CardText>by: {note.author}</CardText>
+              {note_collaborators.length > 0 && (
+                <CardText>
+                  - collaberators
+                  <br />
+                  {note_collaborators.map((collaberator, i) => {
+                    return <span key={i}> {collaberator.name} </span>;
+                  })}
+                </CardText>
+              )}
+            </CardBody>
+          </Card>
+        )}
+      </Container>
+      <Footer />
     </>
   );
 };
