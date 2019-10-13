@@ -10,14 +10,18 @@ import {
   UPDATE_NOTE_SUCCESS,
   GET_NOTE_START,
   GET_NOTE_ERROR,
-  GET_NOTE_SUCCESS
+  GET_NOTE_SUCCESS,
+  DELETE_NOTE_START,
+  DELETE_NOTE_ERROR,
+  DELETE_NOTE_SUCCESS
 } from '../actions/notesActions';
 
 const initialState = {
   loading: false,
   error: null,
   note: null,
-  notes: []
+  notes: [],
+  updateSuccess: false
 };
 
 const notesReducer = (state = initialState, action) => {
@@ -35,17 +39,34 @@ const notesReducer = (state = initialState, action) => {
     case CREATE_NOTE_ERROR:
       return { ...state, loading: false, error: action.payload };
     case UPDATE_NOTE_START:
-      return { ...state, loading: true, error: action.payload };
+      return {
+        ...state,
+        loading: true,
+        error: action.payload,
+        updateSuccess: false,
+        note: null
+      };
     case UPDATE_NOTE_SUCCESS:
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: false, error: null, updateSuccess: true };
     case UPDATE_NOTE_ERROR:
-      return { ...state, loading: false, error: action.payload };
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        updateSuccess: false
+      };
     case GET_NOTE_START:
       return { ...state, loading: true, error: null, note: null };
     case GET_NOTE_SUCCESS:
       return { ...state, loading: false, error: null, note: action.payload };
     case GET_NOTE_ERROR:
       return { ...state, loading: false, error: action.payload, note: null };
+    case DELETE_NOTE_START:
+      return { ...state, loading: true };
+    case DELETE_NOTE_SUCCESS:
+      return { ...state, loading: false };
+    case DELETE_NOTE_ERROR:
+      return { ...state, lading: false };
     default:
       return state;
   }

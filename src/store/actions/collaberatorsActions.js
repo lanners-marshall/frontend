@@ -37,7 +37,6 @@ export const getNoteCollaberators = (id, token) => {
         headers: { Authorization: token }
       })
       .then(response => {
-        console.log(response);
         dispatch({
           type: GET_NOTE_COLLABORATORS_SUCCESS,
           payload: response.data

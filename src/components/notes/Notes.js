@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Note from './Note';
-import { Container } from 'reactstrap';
+import { Container, Spinner } from 'reactstrap';
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
 
@@ -20,7 +20,9 @@ const Notes = ({ notes, loading, getAllNotes, history }) => {
       <Container>
         <h1>Notes</h1>
         {loading && notes.length === 0 ? (
-          <div>loading . . .</div>
+          <Spinner
+            style={{ width: '3rem', height: '3rem', marginTop: '30px' }}
+          />
         ) : (
           <ul>
             {notes.map((note, i) => {

@@ -16,6 +16,10 @@ export const GET_NOTE_START = 'GET_NOTE_START';
 export const GET_NOTE_ERROR = 'GET_NOTE_ERROR';
 export const GET_NOTE_SUCCESS = 'GET_NOTE_SUCCESS';
 
+export const DELETE_NOTE_START = 'DELETE_NOTE_START';
+export const DELETE_NOTE_ERROR = 'DELETE_NOTE_ERROR';
+export const DELETE_NOTE_SUCCESS = 'DELETE_NOTE_SUCCESS';
+
 const URL = 'https://backend206.herokuapp.com';
 
 export const getAllNotes = token => {
@@ -71,6 +75,21 @@ export const getNote = (id, token) => {
       })
       .catch(error => {
         dispatch({ type: GET_NOTE_ERROR, payload: error });
+      });
+  };
+};
+
+export const deleteNote = (id, history) => {
+  return dispatch => {
+    dispatch({ type: DELETE_NOTE_START });
+    axios
+      .delete(`${URL}/notes/${id}`)
+      .then(() => {
+        dispatch({ type: DELETE_NOTE_SUCCESS });
+        history.push('/notes');
+      })
+      .catch(() => {
+        dispatch({ type: DELETE_NOTE_ERROR });
       });
   };
 };

@@ -107,7 +107,7 @@ const CreateNote = ({
                   </Col>
                   <Col xs='12'>
                     <Field
-                      type='text'
+                      type='textarea'
                       label='Body'
                       name='body'
                       id='body'
