@@ -62,11 +62,11 @@ const notesReducer = (state = initialState, action) => {
     case GET_NOTE_ERROR:
       return { ...state, loading: false, error: action.payload, note: null };
     case DELETE_NOTE_START:
-      return { ...state, loading: true };
+      return { ...state };
     case DELETE_NOTE_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state };
     case DELETE_NOTE_ERROR:
-      return { ...state, lading: false };
+      return { ...state };
     default:
       return state;
   }

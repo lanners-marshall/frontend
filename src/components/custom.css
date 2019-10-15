@@ -6,14 +6,13 @@
   margin-bottom: 60px;
 }
 
-.container {
-  max-width: 940px;
-}
-
 .footer {
-  position: absolute;
+  position: fixed;
+  left: 0;
   bottom: 0;
   width: 100%;
-  height: 50px;
+  height: 60px;
   background-color: grey;
+  color: white;
+  text-align: center;
 }

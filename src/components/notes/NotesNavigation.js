@@ -20,9 +20,11 @@ const NotesNavigation = () => {
     window.location.reload();
   };
 
+  const user = localStorage.name;
+
   return (
     <Navbar color='light' light expand='md' className='navigation'>
-      <NavbarBrand>Note App</NavbarBrand>
+      <NavbarBrand>Hi {user}</NavbarBrand>
       <NavbarToggler
         onClick={() => {
           setOpen(!open);

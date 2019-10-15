@@ -24,7 +24,7 @@ const Registration = ({ history, loading }) => {
     <>
       <Navigation />
       <br />
-      <Container>
+      <Container style={{ maxWidth: '800px' }}>
         <h1>Registration</h1>
         {loading ? (
           <Spinner

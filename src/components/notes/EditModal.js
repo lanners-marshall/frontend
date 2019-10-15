@@ -23,7 +23,12 @@ const EditModal = ({ title, body, buttonLabel, className, updateNote }) => {
       <Button color='primary' onClick={toggle}>
         {buttonLabel}
       </Button>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal
+        isOpen={modal}
+        toggle={toggle}
+        className={className}
+        centered={true}
+      >
         <ModalHeader toggle={toggle}>Edit Note</ModalHeader>
 
         <Formik

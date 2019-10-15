@@ -24,8 +24,8 @@ export const signup = (user, history) => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user_id', response.data.id);
         localStorage.setItem('name', response.data.name);
-        history.push('/notes');
         dispatch({ type: SIGNUP_SUCCESS });
+        history.push('/notes');
       })
       .catch(error => {
         dispatch({
@@ -45,11 +45,10 @@ export const loginUser = (user, history) => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user_id', response.data.id);
         localStorage.setItem('name', response.data.name);
-        history.push('/notes');
         dispatch({ type: LOGIN_SUCCESS });
+        history.push('/notes');
       })
       .catch(error => {
-        console.log(error);
         dispatch({ type: LOGIN_ERROR });
       });
   };

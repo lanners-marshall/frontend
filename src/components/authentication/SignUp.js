@@ -7,6 +7,7 @@ import { ReactstrapInput } from 'reactstrap-formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import Footer from '../Footer';
 
 const SignUp = ({ loading, error, history, signup }) => {
   return (

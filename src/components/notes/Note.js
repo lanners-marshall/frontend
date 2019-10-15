@@ -14,13 +14,15 @@ import {
   CardText,
   CardBody,
   Button,
-  Spinner
+  Spinner,
+  Row,
+  Col
 } from 'reactstrap';
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
-
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
+import './custom.css';
 
 const Note = ({
   getNote,
@@ -40,20 +42,34 @@ const Note = ({
     getNoteCollaberators(id, token);
   }, [updateSuccess]);
 
+  const user_id = Number(localStorage.user_id);
+
   return (
     <>
       <NotesNavigation />
-      <Container>
+      <Container className='containerNote'>
         {loading && (
           <Spinner
             style={{ width: '3rem', height: '3rem', marginTop: '30px' }}
           />
         )}
-
-        {note && (
+        {note && !loading && (
           <Card>
             <CardBody>
-              <h2>{note.title}</h2>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'end'
+                }}
+              >
+                <h2>{note.title}</h2>
+                {user_id === note.user_id && (
+                  <div>
+                    <DeleteModal deleteNote={deleteNote} history={history} />
+                  </div>
+                )}
+              </div>
               <CardText>{note.body}</CardText>
               <CardText>by: {note.author}</CardText>
               {note_collaborators.length > 0 && (
@@ -65,17 +81,16 @@ const Note = ({
                   })}
                 </ul>
               )}
-              <EditModal
-                body={note.body}
-                title={note.title}
-                buttonLabel='Edit Note'
-                updateNote={updateNote}
-              />
-              <DeleteModal
-                buttonLabel='Delete'
-                deleteNote={deleteNote}
-                history={history}
-              />
+              <Row>
+                <Col sm={{ size: 1 }}>
+                  <EditModal
+                    body={note.body}
+                    title={note.title}
+                    buttonLabel='Edit'
+                    updateNote={updateNote}
+                  />
+                </Col>
+              </Row>
             </CardBody>
           </Card>
         )}

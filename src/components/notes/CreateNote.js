@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
 import { Field, Form, Formik } from 'formik';
-import { Col, Row, Container, Button } from 'reactstrap';
+import { Col, Row, Container, Button, Spinner, Label } from 'reactstrap';
 import { ReactstrapInput } from 'reactstrap-formik';
 import '../custom.css';
 
@@ -49,7 +49,7 @@ const CreateNote = ({
   return (
     <>
       <NotesNavigation />
-      <Container>
+      <Container style={{ maxWidth: '800px' }}>
         <h2>Create Note</h2>
         <div style={{ marginTop: '15px;' }}>
           <Formik
@@ -87,6 +87,7 @@ const CreateNote = ({
               <Form>
                 <Row>
                   <Col xs='12'>
+                    <Label>Collaborators</Label>
                     <Select
                       value={selectedOption}
                       onChange={handleChange}

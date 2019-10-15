@@ -16,14 +16,18 @@ const DeleteModal = ({ buttonLabel, className, deleteNote, history }) => {
   const del = () => {
     const id = Number(window.location.pathname.split('/').pop());
     deleteNote(id, history);
+    toggle();
   };
 
   return (
     <div>
-      <Button color='danger' onClick={toggle}>
-        {buttonLabel}
+      <Button
+        onClick={toggle}
+        style={{ backgroundColor: 'white', border: 'none', color: 'black' }}
+      >
+        X
       </Button>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal isOpen={modal} toggle={toggle} className={className} centered={true}>
         <ModalHeader toggle={toggle}>Delete Note</ModalHeader>
         <ModalBody>Are you sure?</ModalBody>
         <ModalFooter>

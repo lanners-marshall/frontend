@@ -47,7 +47,6 @@ const LogIn = ({ loading, loginUser, history, error }) => {
         </FormGroup>
         <Button type='submit'>Submit</Button>
       </Form>
-      <Footer />
     </div>
   );
 };

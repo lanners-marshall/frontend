@@ -1,0 +1,9 @@
+.containerNote {
+  max-width: 800px;
+}
+
+@media only screen and (max-width: 320px) {
+  .containerNote {
+    margin-bottom: 100px;
+  }
+}

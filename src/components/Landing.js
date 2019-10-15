@@ -1,16 +1,31 @@
 import React from 'react';
 import Navigation from './Navigation';
-import { Container } from 'reactstrap';
+import { Container, Jumbotron } from 'reactstrap';
 import './custom.css';
 import Footer from './Footer';
+import note from './note-min.jpg';
 
 const Landing = () => {
   return (
     <>
       <Navigation />
       <br />
-      <Container>
-        <h1>Landing</h1>
+      <Container style={{ maxWidth: '800px', paddingBottom: '100px' }}>
+        <Jumbotron>
+          <h1>Notes</h1>
+          <p className='lead'>
+            This is a simple note taking application. You have the ability to
+            create, view, update and delete a note. You also have the ability to
+            assign collaborators to notes. This will given them to ability to
+            edit your note instead of only you.
+          </p>
+          <hr className='my-2' />
+          <p>
+            This application with made with React, Node, ReactStrap, and
+            Postgress
+          </p>
+          <img src={note} alt='note' width='100%' />
+        </Jumbotron>
       </Container>
       <Footer />
     </>

@@ -84,7 +84,8 @@ export const deleteNote = (id, history) => {
     dispatch({ type: DELETE_NOTE_START });
     axios
       .delete(`${URL}/notes/${id}`)
-      .then(() => {
+      .then(response => {
+        console.log(response);
         dispatch({ type: DELETE_NOTE_SUCCESS });
         history.push('/notes');
       })
