@@ -9,7 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { checkToken } from './store/actions/authenticationActions';
 import PropTypes from 'prop-types';
-import './components/custom.css';
+import './custom.css';
 
 const App = ({ loggedIn, loggedOut, checkToken }) => {
   useEffect(() => {

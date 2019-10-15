@@ -1,7 +1,6 @@
 import React from 'react';
 import Navigation from './Navigation';
 import { Container, Jumbotron } from 'reactstrap';
-import './custom.css';
 import Footer from './Footer';
 import note from './note-min.jpg';
 

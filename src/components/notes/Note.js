@@ -22,7 +22,6 @@ import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
-import './custom.css';
 
 const Note = ({
   getNote,

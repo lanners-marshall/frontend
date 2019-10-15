@@ -10,7 +10,6 @@ import {
   NavbarToggler,
   Button
 } from 'reactstrap';
-import '../custom.css';
 
 const NotesNavigation = () => {
   const [open, setOpen] = useState(false);

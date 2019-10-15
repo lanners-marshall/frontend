@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authenticationActions';
-import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
-import '../custom.css';
+import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import Footer from '../Footer';
 
 const LogIn = ({ loading, loginUser, history, error }) => {
@@ -20,6 +19,7 @@ const LogIn = ({ loading, loginUser, history, error }) => {
 
   return (
     <div style={{ marginTop: '15px' }}>
+      {error && <Alert color='danger'>{error}</Alert>}
       <Form onSubmit={login}>
         <FormGroup>
           <Label for='username'>Username</Label>
@@ -52,13 +52,16 @@ const LogIn = ({ loading, loginUser, history, error }) => {
 };
 
 LogIn.propType = {
-  loading: PropTypes.bool,
   error: PropTypes.string,
   history: PropTypes.object,
   loginUser: PropTypes.func
 };
 
+const mapStateToProps = state => ({
+  error: state.auth.loginError
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { loginUser }
 )(LogIn);

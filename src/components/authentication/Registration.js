@@ -9,11 +9,9 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Row,
   Spinner
 } from 'reactstrap';
 import classnames from 'classnames';
-import '../custom.css';
 import Footer from '../Footer';
 import { connect } from 'react-redux';
 
@@ -36,10 +34,11 @@ const Registration = ({ history, loading }) => {
               <NavItem>
                 <NavLink
                   className={classnames({ active: activeTab === '1' })}
-                  style={{ '&:hover': { cursor: 'pointer' } }}
                   onClick={() => {
                     setActiveTab('1');
                   }}
+                  href='#'
+                  style={{ color: 'black' }}
                 >
                   Sign Up
                 </NavLink>
@@ -50,6 +49,8 @@ const Registration = ({ history, loading }) => {
                   onClick={() => {
                     setActiveTab('2');
                   }}
+                  href='#'
+                  style={{ color: 'black' }}
                 >
                   Log In
                 </NavLink>

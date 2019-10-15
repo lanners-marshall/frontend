@@ -29,8 +29,7 @@ export const signup = (user, history) => {
       })
       .catch(error => {
         dispatch({
-          type: SIGNUP_ERROR,
-          payload: error
+          type: SIGNUP_ERROR
         });
       });
   };

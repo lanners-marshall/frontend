@@ -6,8 +6,13 @@
   margin-bottom: 60px;
 }
 
+.contentWrapper {
+  min-height: 100vh;
+  position: relative;
+}
+
 .footer {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -15,4 +20,8 @@
   background-color: grey;
   color: white;
   text-align: center;
+}
+
+.containerNote {
+  max-width: 800px;
 }

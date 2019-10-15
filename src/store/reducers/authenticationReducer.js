@@ -12,7 +12,8 @@ import {
 
 const initialState = {
   loading: false,
-  error: null,
+  loginError: null,
+  singupError: null,
   loggedIn: false,
   loggedOut: false
 };
@@ -20,25 +21,30 @@ const initialState = {
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGNUP_START:
-      return { ...state, loading: true, error: null, loggedIn: false };
+      return { ...state, loading: true, singupError: null, loggedIn: false };
     case SIGNUP_SUCCESS:
-      return { ...state, loading: false, error: null, loggedIn: true };
+      return {
+        ...state,
+        loading: false,
+        singupError: false,
+        loggedIn: true
+      };
     case SIGNUP_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        singupError: 'Username Taken',
         loggedIn: false
       };
     case LOGIN_START:
-      return { ...state, loading: true, error: null, loggedIn: false };
+      return { ...state, loading: true, loginError: null, loggedIn: false };
     case LOGIN_SUCCESS:
-      return { ...state, loading: false, error: null, loggedIn: true };
+      return { ...state, loading: false, loginError: null, loggedIn: true };
     case LOGIN_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        loginError: 'Incorrect Username/Password',
         loggedIn: false
       };
     case VALIDATE_TOKEN_START:

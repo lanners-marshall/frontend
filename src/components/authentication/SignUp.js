@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { signup } from '../../store/actions/authenticationActions';
 import { Field, Form, Formik } from 'formik';
-import { Col, Row, Container, Button } from 'reactstrap';
+import { Col, Row, Container, Button, Alert } from 'reactstrap';
 import { ReactstrapInput } from 'reactstrap-formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import Footer from '../Footer';
 const SignUp = ({ loading, error, history, signup }) => {
   return (
     <div style={{ marginTop: '15px' }}>
+      {error && <Alert color='danger'>{error}</Alert>}
       <Formik
         initialValues={{
           username: '',
@@ -112,7 +113,7 @@ SignUp.propTypes = {
 
 const mapStateToProps = state => ({
   loading: state.auth.loading,
-  error: state.auth.error
+  error: state.auth.singupError
 });
 
 const mapDispatchToProps = dispatch => ({

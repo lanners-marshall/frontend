@@ -12,7 +12,6 @@ import Footer from '../Footer';
 import { Field, Form, Formik } from 'formik';
 import { Col, Row, Container, Button, Spinner, Label } from 'reactstrap';
 import { ReactstrapInput } from 'reactstrap-formik';
-import '../custom.css';
 
 const formater = colabList => {
   const id = Number(localStorage.getItem('user_id'));
