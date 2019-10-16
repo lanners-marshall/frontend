@@ -122,7 +122,6 @@ const Note = ({
             </Card>
           )}
           {note && <Comments comments={comments} />}
-          {note && <CommentModal buttonLabel='Create Comment' />}
         </Container>
         <Footer />
       </div>
