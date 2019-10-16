@@ -37,7 +37,7 @@ const notesReducer = (state = initialState, action) => {
     case CREATE_NOTE_SUCCESS:
       return { ...state, loading: false, error: null };
     case CREATE_NOTE_ERROR:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: 'title is already taken' };
     case UPDATE_NOTE_START:
       return {
         ...state,

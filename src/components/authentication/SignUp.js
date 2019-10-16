@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { signup } from '../../store/actions/authenticationActions';
 import { Field, Form, Formik } from 'formik';
-import { Col, Row, Container, Button, Alert } from 'reactstrap';
+import { Col, Row, Button, Alert } from 'reactstrap';
 import { ReactstrapInput } from 'reactstrap-formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
-import Footer from '../Footer';
 
 const SignUp = ({ loading, error, history, signup }) => {
   return (

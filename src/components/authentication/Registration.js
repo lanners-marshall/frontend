@@ -22,52 +22,54 @@ const Registration = ({ history, loading }) => {
     <>
       <Navigation />
       <br />
-      <Container style={{ maxWidth: '800px' }}>
-        <h1>Registration</h1>
-        {loading ? (
-          <Spinner
-            style={{ width: '3rem', height: '3rem', marginTop: '30px' }}
-          />
-        ) : (
-          <>
-            <Nav tabs>
-              <NavItem>
-                <NavLink
-                  className={classnames({ active: activeTab === '1' })}
-                  onClick={() => {
-                    setActiveTab('1');
-                  }}
-                  href='#'
-                  style={{ color: 'black' }}
-                >
-                  Sign Up
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({ active: activeTab === '2' })}
-                  onClick={() => {
-                    setActiveTab('2');
-                  }}
-                  href='#'
-                  style={{ color: 'black' }}
-                >
-                  Log In
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={activeTab}>
-              <TabPane tabId='1'>
-                <SignUp history={history} />
-              </TabPane>
-              <TabPane tabId='2'>
-                <LogIn history={history} />
-              </TabPane>
-            </TabContent>
-          </>
-        )}
-      </Container>
-      <Footer />
+      <div class='contentWrapper'>
+        <Container style={{ maxWidth: '800px' }}>
+          <h1>Registration</h1>
+          {loading ? (
+            <Spinner
+              style={{ width: '3rem', height: '3rem', marginTop: '30px' }}
+            />
+          ) : (
+            <>
+              <Nav tabs>
+                <NavItem>
+                  <NavLink
+                    className={classnames({ active: activeTab === '1' })}
+                    onClick={() => {
+                      setActiveTab('1');
+                    }}
+                    href='#'
+                    style={{ color: 'black' }}
+                  >
+                    Sign Up
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({ active: activeTab === '2' })}
+                    onClick={() => {
+                      setActiveTab('2');
+                    }}
+                    href='#'
+                    style={{ color: 'black' }}
+                  >
+                    Log In
+                  </NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={activeTab}>
+                <TabPane tabId='1'>
+                  <SignUp history={history} />
+                </TabPane>
+                <TabPane tabId='2'>
+                  <LogIn history={history} />
+                </TabPane>
+              </TabContent>
+            </>
+          )}
+        </Container>
+        <Footer />
+      </div>
     </>
   );
 };

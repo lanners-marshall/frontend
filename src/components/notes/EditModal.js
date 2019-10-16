@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   ModalHeader,
-  ModalBody,
   ModalFooter,
   Col,
   Row,
@@ -9,7 +8,6 @@ import {
   Modal,
   Container
 } from 'reactstrap';
-import PropTypes from 'prop-types';
 import { Field, Form, Formik } from 'formik';
 import { ReactstrapInput } from 'reactstrap-formik';
 

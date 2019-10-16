@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  Modal,
-  Container
-} from 'reactstrap';
+import { ModalHeader, ModalBody, ModalFooter, Button, Modal } from 'reactstrap';
 
-const DeleteModal = ({ buttonLabel, className, deleteNote, history }) => {
+const DeleteModal = ({ className, deleteNote, history }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -27,7 +20,12 @@ const DeleteModal = ({ buttonLabel, className, deleteNote, history }) => {
       >
         X
       </Button>
-      <Modal isOpen={modal} toggle={toggle} className={className} centered={true}>
+      <Modal
+        isOpen={modal}
+        toggle={toggle}
+        className={className}
+        centered={true}
+      >
         <ModalHeader toggle={toggle}>Delete Note</ModalHeader>
         <ModalBody>Are you sure?</ModalBody>
         <ModalFooter>

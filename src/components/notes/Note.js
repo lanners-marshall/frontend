@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   getNote,
   updateNote,
@@ -13,7 +12,6 @@ import {
   Card,
   CardText,
   CardBody,
-  Button,
   Spinner,
   Row,
   Col
@@ -22,6 +20,16 @@ import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
+
+const canCollaberate = (collaborators, note) => {
+  let canColab = false;
+  const id = Number(localStorage.user_id);
+  collaborators.forEach(c => {
+    c.collaborator_id === id && (canColab = true);
+  });
+  note && note.user_id === id && (canColab = true);
+  return canColab;
+};
 
 const Note = ({
   getNote,
@@ -39,62 +47,67 @@ const Note = ({
     const token = localStorage.getItem('token');
     getNote(id, token);
     getNoteCollaberators(id, token);
-  }, [updateSuccess]);
+  }, [updateSuccess, getNote, getNoteCollaberators]);
+  const canColab = canCollaberate(note_collaborators, note);
 
   const user_id = Number(localStorage.user_id);
 
   return (
     <>
       <NotesNavigation />
-      <Container className='containerNote'>
-        {loading && (
-          <Spinner
-            style={{ width: '3rem', height: '3rem', marginTop: '30px' }}
-          />
-        )}
-        {note && !loading && (
-          <Card>
-            <CardBody>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'end'
-                }}
-              >
-                <h2>{note.title}</h2>
-                {user_id === note.user_id && (
-                  <div>
-                    <DeleteModal deleteNote={deleteNote} history={history} />
-                  </div>
+      <div className='contentWrapper'>
+        <Container className='containerDiv'>
+          {loading && (
+            <Spinner
+              style={{ width: '3rem', height: '3rem', marginTop: '30px' }}
+            />
+          )}
+          {note && !loading && (
+            <Card>
+              <CardBody>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'end'
+                  }}
+                >
+                  <h2>{note.title}</h2>
+                  {user_id === note.user_id && (
+                    <div>
+                      <DeleteModal deleteNote={deleteNote} history={history} />
+                    </div>
+                  )}
+                </div>
+                <CardText>{note.body}</CardText>
+                <CardText>by: {note.author}</CardText>
+                {note_collaborators.length > 0 && (
+                  <ul>
+                    - collaberators
+                    <br />
+                    {note_collaborators.map((collaberator, i) => {
+                      return <li key={i}> {collaberator.name} </li>;
+                    })}
+                  </ul>
                 )}
-              </div>
-              <CardText>{note.body}</CardText>
-              <CardText>by: {note.author}</CardText>
-              {note_collaborators.length > 0 && (
-                <ul>
-                  - collaberators
-                  <br />
-                  {note_collaborators.map((collaberator, i) => {
-                    return <li key={i}> {collaberator.name} </li>;
-                  })}
-                </ul>
-              )}
-              <Row>
-                <Col sm={{ size: 1 }}>
-                  <EditModal
-                    body={note.body}
-                    title={note.title}
-                    buttonLabel='Edit'
-                    updateNote={updateNote}
-                  />
-                </Col>
-              </Row>
-            </CardBody>
-          </Card>
-        )}
-      </Container>
-      <Footer />
+                {canColab && (
+                  <Row>
+                    <Col sm={{ size: 1 }}>
+                      <EditModal
+                        body={note.body}
+                        title={note.title}
+                        buttonLabel='Edit'
+                        updateNote={updateNote}
+                      />
+                    </Col>
+                  </Row>
+                )}
+              </CardBody>
+            </Card>
+          )}
+        </Container>
+        <Footer />
+      </div>
     </>
   );
 };

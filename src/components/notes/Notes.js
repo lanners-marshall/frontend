@@ -3,37 +3,45 @@ import { getAllNotes } from '../../store/actions/notesActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Note from './Note';
-import { Container, Spinner } from 'reactstrap';
+import { Container, Spinner, Button } from 'reactstrap';
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
-import PaginationComponent from 'react-reactstrap-pagination';
-import useWindowDimensions from './window';
+import '../../custom.css';
+
+const desc = notes => {
+  const noteAr = [];
+  for (let i = notes.length - 1; i >= 0; i--) {
+    noteAr.push(notes[i]);
+  }
+  return noteAr;
+};
 
 const Notes = ({ notes, loading, getAllNotes, history }) => {
-  const { width } = useWindowDimensions();
-  const [selectedPage, setSelectedPage] = useState(1);
+  const [selectedPage, setSelectedPage] = useState(0);
 
-  function handleSelected(page) {
-    setSelectedPage(page);
-  }
   useEffect(() => {
     const token = localStorage.getItem('token');
     getAllNotes(token);
-  }, [width]);
+  }, [getAllNotes]);
+
+  const handleSelected = (e, page) => {
+    e.preventDefault();
+    const remainder = notes.length % 10;
+    let totalTabs = Math.floor(notes.length / 10);
+    console.log(totalTabs, page);
+    remainder && (totalTabs = totalTabs + 1);
+    if (page < 0) return;
+    if (page === totalTabs) return;
+    setSelectedPage(page);
+  };
+
+  const descNotes = desc(notes);
 
   return (
     <>
       <NotesNavigation />
-
-      <div
-        style={{
-          minHeight: '100vh',
-          position: 'relative',
-          overflow: 'hidden'
-        }}
-      >
-        <Container>
+      <div className='contentWrapper'>
+        <Container className='containerDiv'>
           <h1>Notes</h1>
           {loading && notes.length === 0 ? (
             <Spinner
@@ -42,44 +50,27 @@ const Notes = ({ notes, loading, getAllNotes, history }) => {
           ) : (
             <>
               <div style={{ marginBottom: '35px' }}>
-                {notes
+                {descNotes
                   .slice(selectedPage * 10, (selectedPage + 1) * 10)
                   .map((note, i) => (
                     <div style={{ marginBottom: '5px' }} key={i}>
-                      <Link to={`/notes/${note.id}`}>{note.title}</Link>
+                      <Link to={`/notes/${note.id}`}>
+                        {note.title} - by {note.author}
+                      </Link>
                     </div>
                   ))}
               </div>
-              {/* desktop */}
-              {width > 375 && (
-                <PaginationComponent
-                  totalItems={notes.length}
-                  pageSize={10}
-                  onSelect={handleSelected}
-                  activePage={selectedPage}
-                  maxPaginationNumbers={5}
-                />
-              )}
-              {/* mobile 6,7,8 */}
-              {width <= 375 && width > 320 && (
-                <PaginationComponent
-                  totalItems={notes.length}
-                  pageSize={10}
-                  onSelect={handleSelected}
-                  activePage={selectedPage}
-                  maxPaginationNumbers={2}
-                />
-              )}
-              {/* mobile SE */}
-              {width <= 320 && (
-                <PaginationComponent
-                  totalItems={notes.length}
-                  pageSize={10}
-                  onSelect={handleSelected}
-                  activePage={selectedPage}
-                  maxPaginationNumbers={0}
-                />
-              )}
+              <div>
+                <Button
+                  onClick={e => handleSelected(e, selectedPage - 1)}
+                  style={{ marginRight: '5px' }}
+                >
+                  Previous
+                </Button>
+                <Button onClick={e => handleSelected(e, selectedPage + 1)}>
+                  Next
+                </Button>
+              </div>
             </>
           )}
         </Container>

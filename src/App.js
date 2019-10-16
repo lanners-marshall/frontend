@@ -14,7 +14,7 @@ import './custom.css';
 const App = ({ loggedIn, loggedOut, checkToken }) => {
   useEffect(() => {
     checkToken();
-  }, [loggedIn]);
+  }, [loggedIn, checkToken]);
   return (
     <>
       {loggedIn && (

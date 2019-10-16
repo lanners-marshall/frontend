@@ -46,7 +46,7 @@ export const createNote = (note, history) => {
         history.push('/notes');
       })
       .catch(error => {
-        dispatch({ type: CREATE_NOTE_ERROR, payload: error });
+        dispatch({ type: CREATE_NOTE_ERROR });
       });
   };
 };

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/actions/authenticationActions';
 import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
-import Footer from '../Footer';
 
 const LogIn = ({ loading, loginUser, history, error }) => {
   const [username, setUsername] = useState('');
