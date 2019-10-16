@@ -6,7 +6,9 @@ import {
   deleteNote
 } from '../../store/actions/notesActions';
 import { getNoteCollaberators } from '../../store/actions/collaberatorsActions';
+import { getNoteComments } from '../../store/actions/commentsActions';
 import PropTypes from 'prop-types';
+import Comments from './Comments';
 import {
   Container,
   Card,
@@ -18,6 +20,7 @@ import {
 } from 'reactstrap';
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
+import CommentModal from './CommentModal';
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
 
@@ -36,20 +39,33 @@ const Note = ({
   note,
   note_collaborators,
   getNoteCollaberators,
+  getNoteComments,
   loading,
   updateNote,
   updateSuccess,
   deleteNote,
-  history
+  history,
+  comments,
+  commentUpdate,
+  commentCreate,
+  commentDelete
 }) => {
   useEffect(() => {
     const id = window.location.pathname.split('/').pop();
     const token = localStorage.getItem('token');
     getNote(id, token);
     getNoteCollaberators(id, token);
-  }, [updateSuccess, getNote, getNoteCollaberators]);
+    getNoteComments(id);
+  }, [
+    updateSuccess,
+    getNote,
+    getNoteCollaberators,
+    getNoteComments,
+    commentUpdate,
+    commentCreate,
+    commentDelete
+  ]);
   const canColab = canCollaberate(note_collaborators, note);
-
   const user_id = Number(localStorage.user_id);
 
   return (
@@ -105,6 +121,8 @@ const Note = ({
               </CardBody>
             </Card>
           )}
+          {note && <Comments comments={comments} />}
+          {note && <CommentModal buttonLabel='Create Comment' />}
         </Container>
         <Footer />
       </div>
@@ -121,17 +139,33 @@ Note.propTypes = {
   updateNote: PropTypes.func,
   updateSuccess: PropTypes.bool,
   history: PropTypes.object,
-  deleteNote: PropTypes.func
+  deleteNote: PropTypes.func,
+  createComment: PropTypes.func,
+  comments: PropTypes.array,
+  getNoteComments: PropTypes.func,
+  commentUpdate: PropTypes.bool,
+  commentCreate: PropTypes.bool,
+  commentDelete: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   note: state.notes.note,
   loading: state.notes.loading,
   note_collaborators: state.collaberators.note_collaborators,
-  updateSuccess: state.notes.updateSuccess
+  updateSuccess: state.notes.updateSuccess,
+  comments: state.comments.comments,
+  commentUpdate: state.comments.updateSuccess,
+  commentCreate: state.comments.createSuccess,
+  commentDelete: state.comments.deleteSuccess
 });
 
 export default connect(
   mapStateToProps,
-  { getNote, getNoteCollaberators, updateNote, deleteNote }
+  {
+    getNote,
+    getNoteCollaberators,
+    updateNote,
+    deleteNote,
+    getNoteComments
+  }
 )(Note);

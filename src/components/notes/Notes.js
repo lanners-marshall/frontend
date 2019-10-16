@@ -28,7 +28,6 @@ const Notes = ({ notes, loading, getAllNotes, history }) => {
     e.preventDefault();
     const remainder = notes.length % 10;
     let totalTabs = Math.floor(notes.length / 10);
-    console.log(totalTabs, page);
     remainder && (totalTabs = totalTabs + 1);
     if (page < 0) return;
     if (page === totalTabs) return;
