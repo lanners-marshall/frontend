@@ -20,7 +20,6 @@ import {
 } from 'reactstrap';
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
-import CommentModal from './CommentModal';
 import NotesNavigation from './NotesNavigation';
 import Footer from '../Footer';
 
