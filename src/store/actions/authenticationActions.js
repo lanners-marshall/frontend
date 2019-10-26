@@ -58,7 +58,7 @@ export const checkToken = () => {
     dispatch({ type: VALIDATE_TOKEN_START });
     const token = localStorage.getItem('token');
 
-    if (!token) {
+    if (token === 'undefined' || !token) {
       localStorage.clear();
       dispatch({ type: VALIDATE_TOKEN_FAILURE });
       return;

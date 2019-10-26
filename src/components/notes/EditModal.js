@@ -54,8 +54,12 @@ const EditModal = ({ title, body, buttonLabel, className, updateNote }) => {
           }}
           onSubmit={(values, { setSubmitting }) => {
             const { title, body } = values;
-            const note = { title, body };
+            const text = body.replace(/↵/g, '\n');
+            console.log(text);
+            const note = { title, body: text };
             const id = Number(window.location.pathname.split('/').pop());
+
+            console.log(note);
             updateNote(id, note);
             toggle();
           }}
