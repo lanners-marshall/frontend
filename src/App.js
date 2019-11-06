@@ -4,6 +4,7 @@ import Landing from './components/Landing';
 import NoPage from './components/NoPage';
 import Notes from './components/notes/Notes';
 import Note from './components/notes/Note';
+import Footer from './components/Footer';
 import CreateNote from './components/notes/CreateNote';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,19 +19,25 @@ const App = ({ loggedIn, loggedOut, checkToken }) => {
   return (
     <>
       {loggedIn && (
-        <Switch>
-          <Route exact path='/notes' component={Notes} />
-          <Route path='/notes/:id' component={Note} />
-          <Route path='/create' component={CreateNote} />
-          <Route component={NoPage} />
-        </Switch>
+        <>
+          <Switch>
+            <Route exact path='/notes' component={Notes} />
+            <Route path='/notes/:id' component={Note} />
+            <Route path='/create' component={CreateNote} />
+            <Route component={NoPage} />
+          </Switch>
+          <Footer />
+        </>
       )}
       {loggedOut && (
-        <Switch>
-          <Route exact path='/' component={Landing} />
-          <Route path='/registration' component={Registration} />
-          <Route component={NoPage} />}
-        </Switch>
+        <>
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route path='/registration' component={Registration} />
+            <Route component={NoPage} />}
+          </Switch>
+          <Footer />
+        </>
       )}
     </>
   );

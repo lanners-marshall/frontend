@@ -27,7 +27,11 @@ const commentsReducer = (state = initialState, action) => {
     case CREATE_COMMENT_START:
       return { ...state, loading: true, error: null, createSuccess: false };
     case CREATE_COMMENT_SUCCESS:
-      return { ...state, loading: false, createSuccess: true };
+      return {
+        ...state,
+        loading: false,
+        comments: [...state.comments, action.payload]
+      };
     case CREATE_COMMENT_ERROR:
       return { ...state, loading: false, createSuccesss: false };
     case GET_NOTE_COMMENTS_START:

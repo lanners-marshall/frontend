@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Container, Spinner, Button } from 'reactstrap';
 import NotesNavigation from './NotesNavigation';
-import Footer from '../Footer';
 import '../../custom.css';
+import { Table } from 'reactstrap';
 
 const desc = notes => {
   const noteAr = [];
@@ -16,7 +16,7 @@ const desc = notes => {
   return noteAr;
 };
 
-const Notes = ({ notes, loading, getAllNotes, history }) => {
+const Notes = ({ notes, loading, getAllNotes }) => {
   const [selectedPage, setSelectedPage] = useState(0);
 
   useEffect(() => {
@@ -48,17 +48,26 @@ const Notes = ({ notes, loading, getAllNotes, history }) => {
             />
           ) : (
             <>
-              <div style={{ marginBottom: '35px' }}>
-                {descNotes
-                  .slice(selectedPage * 10, (selectedPage + 1) * 10)
-                  .map((note, i) => (
-                    <div style={{ marginBottom: '5px' }} key={i}>
-                      <Link to={`/notes/${note.id}`}>
-                        {note.title} - by {note.author}
-                      </Link>
-                    </div>
-                  ))}
-              </div>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {descNotes
+                    .slice(selectedPage * 10, (selectedPage + 1) * 10)
+                    .map((note, i) => (
+                      <tr>
+                        <td>
+                          <Link to={`/notes/${note.id}`}>{note.title}</Link>
+                        </td>
+                        <td>{note.author}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
               <div>
                 <Button
                   onClick={e => handleSelected(e, selectedPage - 1)}
@@ -73,7 +82,6 @@ const Notes = ({ notes, loading, getAllNotes, history }) => {
             </>
           )}
         </Container>
-        <Footer />
       </div>
     </>
   );

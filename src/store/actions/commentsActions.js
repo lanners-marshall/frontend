@@ -24,7 +24,7 @@ export const createComment = comment => {
     axios
       .post(`${URL}/comments`, comment)
       .then(response => {
-        dispatch({ type: CREATE_COMMENT_SUCCESS });
+        dispatch({ type: CREATE_COMMENT_SUCCESS, payload: comment });
       })
       .catch(error => {
         console.log(error);

@@ -21,7 +21,6 @@ import {
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
 import NotesNavigation from './NotesNavigation';
-import Footer from '../Footer';
 
 const canCollaberate = (collaborators, note) => {
   let canColab = false;
@@ -122,7 +121,6 @@ const Note = ({
           )}
           {note && <Comments comments={comments} />}
         </Container>
-        <Footer />
       </div>
     </>
   );

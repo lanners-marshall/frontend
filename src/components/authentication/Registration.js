@@ -12,7 +12,6 @@ import {
   Spinner
 } from 'reactstrap';
 import classnames from 'classnames';
-import Footer from '../Footer';
 import { connect } from 'react-redux';
 
 const Registration = ({ history, loading }) => {
@@ -68,7 +67,6 @@ const Registration = ({ history, loading }) => {
             </>
           )}
         </Container>
-        <Footer />
       </div>
     </>
   );

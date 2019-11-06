@@ -1,7 +1,6 @@
 import React from 'react';
 import Navigation from './Navigation';
 import { Container, Jumbotron } from 'reactstrap';
-import Footer from './Footer';
 import note from './note-min.jpg';
 
 const Landing = () => {
@@ -27,7 +26,6 @@ const Landing = () => {
             <img src={note} alt='note' width='100%' />
           </Jumbotron>
         </Container>
-        <Footer />
       </div>
     </>
   );

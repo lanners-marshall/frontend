@@ -5,7 +5,6 @@ import { createNote } from '../../store/actions/notesActions';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import NotesNavigation from './NotesNavigation';
-import Footer from '../Footer';
 import { Field, Form, Formik } from 'formik';
 import { Col, Row, Container, Button, Label, Alert, Spinner } from 'reactstrap';
 import { ReactstrapInput } from 'reactstrap-formik';
@@ -136,7 +135,6 @@ const CreateNote = ({
             </>
           )}
         </Container>
-        <Footer />
       </div>
     </>
   );
