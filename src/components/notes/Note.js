@@ -63,6 +63,7 @@ const Note = ({
     commentCreate,
     commentDelete
   ]);
+
   const canColab = canCollaberate(note_collaborators, note);
   const user_id = Number(localStorage.user_id);
 
