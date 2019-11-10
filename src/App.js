@@ -12,6 +12,7 @@ import { checkToken } from './store/actions/authenticationActions';
 import PropTypes from 'prop-types';
 import './custom.css';
 
+
 const App = ({ loggedIn, loggedOut, checkToken }) => {
   useEffect(() => {
     checkToken();
